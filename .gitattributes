@@ -1,0 +1,3 @@
+* merge=union
+
+*.jpg merge=binary -delta
