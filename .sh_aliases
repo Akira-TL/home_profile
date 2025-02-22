@@ -21,12 +21,7 @@ alias path='echo -e ${PATH//:/\\n}'
 alias now='date +"%T"'
 alias nowtime=now
 alias nowdate='date +"%d-%m-%Y"'
-alias pron='. proxy.sh on'
-alias proff='. proxy.sh off'
-alias proxy='. proxy.sh $*'
 alias ping='ping -c 4 $*'
-alias wsl='ssh akiratl@$(last | grep tanlang | head -n 1 | awk '\''NR==1 {print $3}'\'' ) -p 22222  -i ~/.ssh/id_rsa $*'
-alias win='ssh akiratl@$(last | grep tanlang | head -n 1 | awk '\''NR==1 {print $3}'\'' ) -p 22  -i ~/.ssh/id_rsa $*'
 alias aria='aria2c -s 16 -x 16 --check-certificate=false -c $*'
 
 alias t='top -d 1 -i -c $*'

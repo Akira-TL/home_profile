@@ -134,27 +134,18 @@ else
 fi
 unset __conda_setup
 
-# if [ -f "$HOME/.local/miniconda3/etc/profile.d/mamba.sh" ]; then
-#     . "$HOME/.local/miniconda3/etc/profile.d/mamba.sh"
-# fi
-# <<< conda initialize <<<
-
 # User settings
-if [ -f ~/.bash_aliases ]; then
-    source ~/.bash_aliases
+if [ -f ~/.sh_aliases ]; then
+    source ~/.sh_aliases
 fi
-if [ -f ~/.shenv ]; then
-    source ~/.shenv
+if [ -f ~/.sh_env ]; then
+    source ~/.sh_env
 fi
-
-# export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
-# compinit -d $HOME/.temp/.zcompdump
-# rm ~/.zcompdump*
-# End of User settings
-if ((FIRST_LOGIN != 1)); then
-    c
-    FIRST_LOGIN=1
+if [ -f ~/.sh_private_aliases ]; then
+    source ~/.sh_private_aliases
+fi
+if [ -f ~/.sh_private_env ]; then
+    source ~/.sh_private_env
 fi
 
 typeset -U path
-pron

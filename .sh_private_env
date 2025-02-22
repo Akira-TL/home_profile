@@ -1,0 +1,47 @@
+#!/bin/bash
+
+export MACHINE_NAME="中服务器"
+
+export DISPLAY="$LOGIN_IP:0.0"
+
+export EGGNOG_DATA_DIR="${HOME}/database/eggnog"
+
+export GTDBTK_DATA_PATH="/ds1821/tanlang/database/gtdbtk/release220"
+
+# kraken2 start
+export KRAKEN2_NUM_THREADS=16
+export KRAKEN2_DB_PATH="/home/tanlang/data/kraken2_dbs:"
+export KRAKEN2_DEFAULT_DB="/home/tanlang/data/kraken2_dbs/AF_Met_v2_db"
+export BOWTIE2_INDEXES="/home/tanlang/data/bowtie2"
+# kraken2 end
+
+# homebrew start
+if [[ $PATH != *"/home/linuxbrew/.linuxbrew/sbin:"* ]]; then
+    export PATH=/home/linuxbrew/.linuxbrew/sbin:$PATH
+fi
+if [[ $PATH != *"/home/linuxbrew/.linuxbrew/bin:"* ]]; then
+    export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
+fi
+if [[ $LD_LIBRARY_PATH != *"/home/linuxbrew/.linuxbrew/lib:"* ]]; then
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/linuxbrew/.linuxbrew/lib #设置动态链接库的路径
+    export LIBRARY_PATH=$LIBRARY_PATH:/home/linuxbrew/.linuxbrew/lib       #设置静态库的路径
+fi
+if [[ $LD_LIBRARY_PATH != *"$HOME/.local/lib:"* ]]; then
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/lib #设置动态链接库的路径
+    export LIBRARY_PATH=$LIBRARY_PATH:$HOME/.local/lib       #设置静态库的路径
+fi
+export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
+export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+# export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
+export HOMEBREW_PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
+export XDG_DATA_DIRS="/home/linuxbrew/.linuxbrew/share:$XDG_DATA_DIRS"
+# homebrew end
+
+if [[ $PATH != *"${HOME}/.local/docker/bin:"* ]]; then
+    export DOCKER_HOST=unix:///run/user/1003/docker.sock
+    export PATH=$HOME/.local/docker/bin:$PATH
+fi
+if [[ $PATH != *"${HOME}/.local/bwa-mem2:"* ]]; then
+    export PATH=$HOME/.local/bwa-mem2:$PATH
+fi
