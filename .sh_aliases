@@ -73,16 +73,11 @@ init_shell_logging() {
     # 自动加载最新日志文件
     export logf="${HOME}/.shell_log/${SCREEN_NAME}_$(date +%Y-%m-%d_%H:%M:%S).log"
 }
-generate_log_filename() {
-    local tty_id=$(tty | cut -d'/' -f4)
-    date +"${HOME}/.shell_log/pts${tty_id}_%Y-%m-%d_%H:%M:%S.log"
-}
 get_recent_command() {
     # 提取最近非编号命令历史
     h | grep -v "^\s*[0-9][*] " | tail -n 1
 }
-alias aa='an -a "${logf}" -c "$(get_recent_command)" && { 
+aa() {
+    an -a "${logf}" -c "$(get_recent_command)" "$@"
     init_shell_logging
-    export logf="$(generate_log_filename)"
-    echo "Logging to: $logf"
-}'
+}
