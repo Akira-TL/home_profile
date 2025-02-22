@@ -149,3 +149,8 @@ if [ -f ~/.sh_private_env ]; then
 fi
 
 typeset -U path
+
+if ((FIRST_LOGIN != 1)); then
+    c
+    FIRST_LOGIN=1
+fi
