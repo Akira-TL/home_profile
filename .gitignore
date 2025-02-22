@@ -1,0 +1,12 @@
+*
+!.zshrc
+!.shenv
+!.screenrc
+!.profile
+!.lintr
+!.gitignore
+!.gitconfig
+!.condarc
+!.bashrc
+!.bash_aliases
+!.local/script/*
