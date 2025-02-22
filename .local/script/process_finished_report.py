@@ -36,12 +36,6 @@ parser.add_argument(
     default="no_reply",
     help="The send message.",
 )
-# parser.add_argument(
-#     "--theme",
-#     type=str,
-#     default="auto_send",
-#     help="The send theme.",
-# )
 parser.add_argument(
     "--attachment_path",
     "-a",
@@ -78,8 +72,6 @@ parser.add_argument("pid", nargs="?", help="Process ID if not specified with -p"
 args = parser.parse_args()
 
 # 设置logger等级
-
-
 if args.v:
     log_level = "DEBUG"
 else:
@@ -138,7 +130,9 @@ def send_message(receivers, message):
             server.starttls()
             server.login(mail_user, mail_pass)
             if args.v:
-                logger.debug(f"\n{message.as_string()}")
+                logger.debug(
+                    f"\033[92mmessage.as_string():\033[0m\n{message.as_string()}"
+                )
             else:
                 logger.info("\033[92mSending email...\033[0m")
                 server.sendmail(sender, receivers, message.as_string())
