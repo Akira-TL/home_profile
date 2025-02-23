@@ -67,12 +67,12 @@ pv() {
 
 get_recent_command() {
     # 当前终端的最近一条命令
-    h | grep -v "^\s*[0-9][*] " | sed 's/^[[:space:]]*[0-9]*\**[[:space:]]*//' | tail -n 1
+    echo "$(h | grep -v "^\s*[0-9][*] " | tail -n 1 | sed 's/^[[:space:]]*[0-9]*\**[[:space:]]*//')"
 }
 # 自动记录函数，用来记录输出到指定文件
 mtee() {
     if [[ ! -f $logf ]]; then
-        echo "$(get_recent_command)" >$logf
+        echo "$(get_recent_command)\n" >$logf
     fi
     "$@" 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $logf
 }

@@ -164,8 +164,6 @@ if __name__ == "__main__":
                 f"\033[92mAttachment content :\033[0m\n{attachment_file.read().decode("utf-8")}"
             )
             attachment.set_payload(attachment_file.read())
-        with open(args.attachment_path, "wb") as attachment_file:
-            attachment_file.write(attachment_file.read())
         encoders.encode_base64(attachment)
         attachment.add_header(
             "Content-Disposition",
