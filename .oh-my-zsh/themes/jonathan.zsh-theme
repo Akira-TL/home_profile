@@ -17,16 +17,16 @@ function theme_precmd {
   random_string=$(cat /dev/urandom | tr -dc 'a-zA-Z' | head -c $total_value)
   
   local promptsize=${#${(%):---(%n@$random_string:%l)---()--}}
-  local rubypromptsize=${#${(%)$(ruby_prompt_info)}}
+  local venvpromptsize=$((${#$(virtualenv_prompt_info)}))
   local pwdsize=${#${(%):-%~}}+$(pwd | grep -oP "[\x{4e00}-\x{9fa5}]" | wc -l)
 
   # Truncate the path if it's too long.
-  if (( promptsize + rubypromptsize + pwdsize > TERMWIDTH )); then
+  if (( promptsize + rubypromptsize + pwdsize + venvpromptsize > TERMWIDTH )); then
     (( PR_PWDLEN = TERMWIDTH - promptsize ))
   elif [[ "${langinfo[CODESET]}" = UTF-8 ]]; then
-    PR_FILLBAR="\${(l:$(( TERMWIDTH - (promptsize + rubypromptsize + pwdsize) ))::${PR_HBAR}:)}"
+    PR_FILLBAR="\${(l:$(( TERMWIDTH - (promptsize + rubypromptsize + pwdsize + venvpromptsize ) ))::${PR_HBAR}:)}"
   else
-    PR_FILLBAR="${PR_SHIFT_IN}\${(l:$(( TERMWIDTH - (promptsize + rubypromptsize + pwdsize) ))::${altchar[q]:--}:)}${PR_SHIFT_OUT}"
+    PR_FILLBAR="${PR_SHIFT_IN}\${(l:$(( TERMWIDTH - (promptsize + rubypromptsize + pwdsize + venvpromptsize ) ))::${altchar[q]:--}:)}${PR_SHIFT_OUT}"
   fi
 }
 
@@ -144,8 +144,8 @@ function space_info() {
 PROMPT='${PR_SET_CHARSET}${PR_STITLE}${(e)PR_TITLEBAR}\
 ${PR_CYAN}${PR_ULCORNER}${PR_HBAR}${PR_GREY}(\
 ${PR_GREEN}%${PR_PWDLEN}<...<%~%<<\
-${PR_GREY})$(ruby_prompt_info)${PR_CYAN}${PR_HBAR}${PR_HBAR}${(e)PR_FILLBAR}${PR_HBAR}${PR_GREY}(\
-${PR_CYAN}%(!.%SROOT%s.%n)${PR_GREY}@${PR_GREEN}$MACHINE_NAME:%l\
+${PR_GREY})$(virtualenv_prompt_info)$(ruby_prompt_info)${PR_CYAN}${PR_HBAR}${PR_HBAR}${(e)PR_FILLBAR}${PR_HBAR}${PR_GREY}(\
+${PR_CYAN}%(!.%SROOT%s.%n)${PR_GREY}@${PR_GREEN}%m:%l\
 ${PR_GREY})${PR_CYAN}${PR_HBAR}${PR_URCORNER}\
 
 ${PR_CYAN}${PR_LLCORNER}${PR_BLUE}${PR_HBAR}(\
