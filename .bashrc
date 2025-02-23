@@ -111,50 +111,19 @@ if ! shopt -oq posix; then
     fi
 fi
 
-# Application config
-# export APT_CONFIG=/home/tanlang/sources.list
-export APP_HOME=$HOME/.local
-
-# export CXXFLAGS="-fPIC"
-# export CFLAGS="-fPIC"
-# export NCURSES_HOME=$APP_HOME/ncurses
-# export PATH=$NCURSES_HOME/bin:$PATH
-# export LD_LIBRARY_PATH=$NCURSES_HOME/lib:$LD_LIBRARY_PATH
-# export CPPFLAGS="-I$NCURSES_HOME/include" LDFLAGS="-L$NCURSES_HOME/lib"
-
-# export ZSH_HOME=$APP_HOME/bin
-# export PATH=$ZSH_HOME:$PATH
-# export SHELL=$ZSH_HOME/zsh
-# exec $ZSH_HOME/bin/zsh -l
-# 如果当前的shell是bash，就执行zsh
-# if [ $0 = "-bash" ]; then
-#     # 保存当前的目录
-#     export CUR_DIR=$(pwd)
-#     # 执行zsh
-#     exec $ZSH_HOME/zsh -l
-#     # 切换回原来的目录
-#     cd $CUR_DIR
-# fi
-
-# End of applocations config
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/tanlang/.local/miniconda3/bin/conda' 'shell.bash' 'hook' 2>/dev/null)"
+__conda_setup="$('$HOME/.local/miniconda3/bin/conda' 'shell.bash' 'hook' 2>/dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/tanlang/.local/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/tanlang/.local/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "$HOME/.local/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/.local/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/tanlang/.local/miniconda3/bin:$PATH"
+        export PATH="$HOME/.local/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
-
-if [ -f "/home/tanlang/.local/miniconda3/etc/profile.d/mamba.sh" ]; then
-    . "/home/tanlang/.local/miniconda3/etc/profile.d/mamba.sh"
-fi
 # <<< conda initialize <<<
 
 # User settings
@@ -172,5 +141,4 @@ if [ -f ~/.sh_private_env ]; then
 fi
 
 PS1="${debian_chroot:+($debian_chroot)}\[\033[01;31m\][\T]\[\033[00m\]\[\033[01;32m\][\u]\[\033[00m\]\[\033[01;33m\][\#]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "
-pron
 # End of User settings

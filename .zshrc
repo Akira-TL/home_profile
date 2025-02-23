@@ -5,8 +5,8 @@
 # brew适配zsh自动补全需要
 if [[ $PATH != *"/home/linuxbrew/.linuxbrew/bin:"* ]]; then
     export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
+    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 ZSH_DISABLE_COMPFIX=true # 我也不知道为什么要怎么写，反正就是不检查brew的文件夹权限（不过不是自己这个用户，很正常吧
 # brew适配zsh自动补全需要end
 export ZSH="$HOME/.oh-my-zsh"
