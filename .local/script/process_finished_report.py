@@ -57,13 +57,6 @@ parser.add_argument(
     help="The fetching prosses pid.",
 )
 parser.add_argument(
-    "--cmd",
-    "-c",
-    # required=False,
-    default="",
-    help="The command.",
-)
-parser.add_argument(
     "-v",
     action="store_true",
     help="Open the debug.",
@@ -167,18 +160,12 @@ if __name__ == "__main__":
     if args.attachment_path:
         attachment = MIMEBase("application", "octet-stream")
         with open(args.attachment_path, "rb") as attachment_file:
-            fixed_content = (
-                f"{' '.join(args.cmd.split()[1:])}\n\n".replace("\\n", "\n").encode(
-                    "utf-8"
-                )
-                + attachment_file.read()
-            )
             logger.debug(
-                f"\033[92mAttachment content :\033[0m\n{fixed_content.decode("utf-8")}"
+                f"\033[92mAttachment content :\033[0m\n{attachment_file.read().decode("utf-8")}"
             )
-            attachment.set_payload(fixed_content)
+            attachment.set_payload(attachment_file.read())
         with open(args.attachment_path, "wb") as attachment_file:
-            attachment_file.write(fixed_content)
+            attachment_file.write(attachment_file.read())
         encoders.encode_base64(attachment)
         attachment.add_header(
             "Content-Disposition",
