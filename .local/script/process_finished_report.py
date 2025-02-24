@@ -6,7 +6,13 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
-from loguru import logger
+
+try:
+    from loguru import logger
+except ImportError:
+    print("\033[93mInstalling loguru...\033[0m")
+    os.system("pip install loguru")
+    from loguru import logger
 
 
 # 邮箱服务器地址
@@ -60,6 +66,13 @@ parser.add_argument(
     "-v",
     action="store_true",
     help="Open the debug.",
+)
+parser.add_argument(
+    "--clear",
+    "-c",
+    action="store_const",
+    const=os.getenv("logf"),
+    help="Clean the last log.",
 )
 parser.add_argument("pid", nargs="?", help="Process ID if not specified with -p")
 args = parser.parse_args()
@@ -133,17 +146,36 @@ def send_message(receivers, message):
             logger.info("\033[92mEmail send successfully\033[0m")
             return
         except Exception as e:
-            logger.waring(f"\033[91mFailed to send email: {e}\033[0m")
+            logger.warning(f"\033[91mFailed to send email: {e}\033[0m")
             time.sleep(60)
             error_cnt += 1
 
 
-if __name__ == "__main__":
-    logger.info(
-        "\033[92mProcess ended in \033[93m"
-        + datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        + "\033[0m"
-    )
+def clean_logf(path):
+    """
+    将args.attachment_path重命名，添加最后发送的时间到末尾，并且保留文件后缀
+    """
+    if path:
+        try:
+            os.rename(
+                path,
+                path.replace(
+                    os.path.splitext(path)[1],
+                    f"_{datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}{os.path.splitext(path)[1]}",
+                ),
+            )
+            logger.info(
+                "Log file moved to "
+                + path.replace(
+                    os.path.splitext(path)[1],
+                    f"_{datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}{os.path.splitext(path)[1]}",
+                )
+            )
+        except FileNotFoundError:
+            logger.error("The file cannot be found, is there no record executed")
+
+
+def compress_message():
     message = MIMEMultipart()
     # 邮件主题
     message["Subject"] = args.title
@@ -153,7 +185,7 @@ if __name__ == "__main__":
     message["To"] = receivers[0]
     # 添加时间戳
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    body_text = f"{args.msg} \n自动时间戳: {timestamp}"
+    body_text = f"{args.msg} \nTime: {timestamp}"
     # 将正文内容作为 MIMEText 附加到 MIMEMultipart 对象中
     message.attach(MIMEText(body_text, "plain", "utf-8"))
     # 添加附件
@@ -161,7 +193,7 @@ if __name__ == "__main__":
         attachment = MIMEBase("application", "octet-stream")
         with open(args.attachment_path, "rb") as attachment_file:
             logger.debug(
-                f"\033[92mAttachment content :\033[0m\n{attachment_file.read().decode("utf-8")}"
+                f"\033[92mAttachment content :\033[0m\n{attachment_file.read().decode('utf-8')}"
             )
             attachment.set_payload(attachment_file.read())
         encoders.encode_base64(attachment)
@@ -170,20 +202,18 @@ if __name__ == "__main__":
             f"attachment; filename={os.path.basename(args.attachment_path)}",
         )
         message.attach(attachment)
-    watch_pid_sent(args.pid, [args.receivers], message)
-    # 将args.attachment_path重命名，添加最后发送的时间到末尾，并且保留文件后缀
-    if args.attachment_path:
-        os.rename(
-            args.attachment_path,
-            args.attachment_path.replace(
-                os.path.splitext(args.attachment_path)[1],
-                f"_{datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}{os.path.splitext(args.attachment_path)[1]}",
-            ),
-        )
-        logger.info(
-            "Log file moved to "
-            + args.attachment_path.replace(
-                os.path.splitext(args.attachment_path)[1],
-                f"_{datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}{os.path.splitext(args.attachment_path)[1]}",
-            )
-        )
+    return message
+
+
+if __name__ == "__main__":
+    if args.clear:
+        logger.info("Cleaning......")
+        clean_logf(args.clear)
+        exit()
+    logger.info(
+        "\033[92mProcess ended in \033[93m"
+        + datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        + "\033[0m"
+    )
+    watch_pid_sent(args.pid, [args.receivers], compress_message())
+    clean_logf(args.attachment_path)
