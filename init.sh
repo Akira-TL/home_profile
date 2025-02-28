@@ -13,7 +13,7 @@ backup_path=$basepath/backup$(date +%Y-%m-%d_%H_%M_%S)
 for file in $(ls -a $p); do
     file=${file#$HOME/}
     # 如果是目录
-    [[ $file == ".gitattributes" ]] || [[ $file == ".gitignore" ]] || [[ $file == ".git" ]] || [[ $file == "init.sh" ]] || [[ $file == "." ]] || [[ $file == ".." ]] || [[ $file == backup* ]] && continue
+    [[ $file == ".gitignore" ]] || [[ $file == ".git" ]] || [[ $file == "init.sh" ]] || [[ $file == "." ]] || [[ $file == ".." ]] || [[ $file == backup* ]] && continue
     if [ -d $file ]; then
         # 进入目录
         a=$(realpath $file)
