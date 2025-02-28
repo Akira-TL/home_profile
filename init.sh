@@ -36,13 +36,13 @@ for file in $(ls -a $p); do
                 mv $HOME/$filepath $backup_path/$filepath
                 echo 已备份到 $backup_path/$filepath
                 ln $a $HOME/$filepath
-                echo "ln -s $a $HOME/$filepath"
+                echo "ln $a $HOME/$filepath"
             fi
         else
             echo "文件不存在，正在创建链接"
             mkdir -p $HOME/$(dirname $filepath)
             ln $a $HOME/$filepath
-            echo "ln -s $a $HOME/$filepath"
+            echo "ln $a $HOME/$filepath"
         fi
     fi
 done
