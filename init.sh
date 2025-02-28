@@ -3,16 +3,16 @@
 basepath=$(realpath $(dirname "$0"))
 if [ $# -eq 0 ]; then
     p=$basepath
+    cd $p
 else
     p=.
 fi
+# exit 0
 # 对当前文件的当前目录进行循环
 for file in $(ls -a $p); do
     file=${file#$HOME/}
     # 如果是目录
-    if [[ $file == .git* ]] || [[ $file == "init.sh" ]] || [[ $file == "." ]] || [[ $file == ".." ]] || [[ $file == backup* ]]; then
-        continue
-    fi
+    [[ $file == .git* ]] || [[ $file == "init.sh" ]] || [[ $file == "." ]] || [[ $file == ".." ]] || [[ $file == backup* ]] && continue
     if [ -d $file ]; then
         # 进入目录
         a=$(realpath $file)
@@ -38,6 +38,11 @@ for file in $(ls -a $p); do
                 ln $a $HOME/$filepath
                 echo "ln -s $a $HOME/$filepath"
             fi
+        else
+            echo "文件不存在，正在创建链接"
+            mkdir -p $HOME/$(dirname $filepath)
+            ln $a $HOME/$filepath
+            echo "ln -s $a $HOME/$filepath"
         fi
     fi
 done
