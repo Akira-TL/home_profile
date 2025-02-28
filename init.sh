@@ -9,6 +9,7 @@ else
 fi
 # exit 0
 # 对当前文件的当前目录进行循环
+backup_path=$basepath/backup$(date +%Y-%m-%d_%H_%M_%S)
 for file in $(ls -a $p); do
     file=${file#$HOME/}
     # 如果是目录
@@ -31,7 +32,6 @@ for file in $(ls -a $p); do
                 echo "文件存在且是硬链接到 $a"
             else
                 echo "文件存在，但不是硬链接到 $a"
-                backup_path=$basepath/backup$(date +%Y-%m-%d_%H_%M_%S)
                 mkdir -p $backup_path/$(dirname $filepath)
                 mv $HOME/$filepath $backup_path/$filepath
                 echo 已备份到 $backup_path/$filepath
