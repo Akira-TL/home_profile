@@ -1,12 +1,1 @@
-/*
-!.zshrc
-!.shenv
-!.screenrc
-!.profile
-!.lintr
-!.gitignore
-!.gitconfig
-!.condarc
-!.bashrc
-!.sh_env
-!.sh_aliases
+/backup*/
