@@ -122,8 +122,8 @@ conda_prompt_info() {
 
 local venv_prompt='$(venv_prompt_info)'
 venv_prompt_info() {
-    if [ -n "$VIRTUAL_ENV" ]; then
-        echo -n "$(basename $VIRTUAL_ENV)"
+    if [ -n "$VENV_VIRTUAL_ENV" ]; then
+        echo -n "$VENV_VIRTUAL_ENV"
     else
         echo -n ''
     fi
