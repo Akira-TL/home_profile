@@ -3,7 +3,10 @@
 # Path to your oh-my-zsh installation.
 
 # brew适配zsh自动补全需要
-if [[ $PATH != *"/home/linuxbrew/.linuxbrew/bin:"* ]]; then
+if
+    [[ $PATH != *"/home/linuxbrew/.linuxbrew/bin:"* ]] &&
+        [[ -d "/home/linuxbrew/.linuxbrew/bin" ]]
+then
     export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
     FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
@@ -151,6 +154,6 @@ fi
 typeset -U path
 
 if ((FIRST_LOGIN != 1)); then
-    c
+    # c
     FIRST_LOGIN=1
 fi
