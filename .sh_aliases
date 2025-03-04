@@ -87,3 +87,7 @@ aa() {
     an -a "${logf}" "$@"
     init_shell_logging
 }
+
+get_login_ip() {
+    last "$(whoami)" | grep -oP ".*(\d*\.\d*\.\d*\.\d*).*still logged in" | grep -oP "(\d*\.\d*\.\d*\.\d*)" | head -n 1
+}
