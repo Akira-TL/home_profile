@@ -91,3 +91,9 @@ aa() {
 get_login_ip() {
     last "$(whoami)" | grep -oP ".*(\d*\.\d*\.\d*\.\d*).*still logged in" | grep -oP "(\d*\.\d*\.\d*\.\d*)" | head -n 1
 }
+p() {
+    echo "[ProxyList]
+socks5 $(get_login_ip) 7899
+http $(get_login_ip) 7899" >$HOME/.proxychains/proxychains.conf
+    proxychains4 "$@"
+}
