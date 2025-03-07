@@ -28,10 +28,10 @@ for file in $(ls -a $p); do
         a=$(realpath $file)
         filepath=${a#$basepath/}
         if [[ -f "$HOME/$filepath" ]]; then
-            if [ "$(stat -c '%d:%i' "$HOME/$filepath")" == "$(stat -c '%d:%i' "$a")" ]; then
-                echo "文件存在且是硬链接到 $a"
+            if [ "$(readlink "$HOME/$filepath")" == "$a" ]; then
+                echo "文件存在且是软链接到 $a"
             else
-                echo "文件存在，但不是硬链接到 $a"
+                echo "文件存在，但不是软链接到 $a"
                 mkdir -p $backup_path/$(dirname $filepath)
                 mv $HOME/$filepath $backup_path/$filepath
                 echo 已备份到 $backup_path/$filepath
@@ -39,7 +39,7 @@ for file in $(ls -a $p); do
                 echo "ln $a -s $HOME/$filepath"
             fi
         else
-            echo "文件不存在，正在创建链接"
+            echo "文件不存在，正在创建软链接"
             mkdir -p $HOME/$(dirname $filepath)
             ln -s $a $HOME/$filepath
             echo "ln -s $a $HOME/$filepath"
