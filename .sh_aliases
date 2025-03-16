@@ -48,9 +48,9 @@ alias gc='git clone $*'
 alias da='deactivate'
 va() {
     if [ $# -eq 0 ]; then
-        source env/bin/activate
+        source __venv_env__/bin/activate
     else
-        source $@/bin/activate
+        source __venv_"$1"__/bin/activate
     fi
 }
 pv() {
@@ -59,7 +59,7 @@ pv() {
         echo -n "export VENV_VIRTUAL_ENV=env" >>'__venv_env__/bin/activate'
         sed -i '/    unset VIRTUAL_ENV/c\    unset VIRTUAL_ENV VENV_VIRTUAL_ENV' '__venv_env__/bin/activate'
     else
-        python -m venv "__venv_$1__"
+        python -m venv __venv_"$1"__
         echo -n "export VENV_VIRTUAL_ENV=$1" >>'__venv_'$1'__/bin/activate'
         sed -i '/    unset VIRTUAL_ENV/c\    unset VIRTUAL_ENV VENV_VIRTUAL_ENV' '__venv_'$1'__/bin/activate'
     fi
