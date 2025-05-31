@@ -13,12 +13,11 @@ fi
 ZSH_DISABLE_COMPFIX=true # 我也不知道为什么要怎么写，反正就是不检查brew的文件夹权限（不过不是自己这个用户，很正常吧
 # brew适配zsh自动补全需要end
 export ZSH="$HOME/.oh-my-zsh"
-# export MACHINE_NAME="中服务器"
 #Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="jonathan"
+ZSH_THEME="my_theme"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
