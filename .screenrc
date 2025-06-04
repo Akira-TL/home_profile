@@ -1,2 +1,5 @@
 nfo xterm* ti@:te@
 defscrollback 1000000
+unsetenv $VENV_VIRTUAL_ENV
+unsetenv CONDA_PREFIX
+unsetenv CONDA_DEFAULT_ENV
