@@ -31,3 +31,4 @@ else
 fi
 logf="${HOME}/.shell_log/${SCREEN_NAME}_$(date +%Y-%m-%d_%H:%M:%S).log" # 单终端的临时输出文件
 export logf
+export VIRTUAL_ENV_DISABLE_PROMPT=1
