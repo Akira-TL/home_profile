@@ -175,7 +175,7 @@ def clean_logf(path):
             logger.error("The file cannot be found, is there no record executed")
 
 
-def compress_message():
+def compress_message(args):
     message = MIMEMultipart()
     # 邮件主题
     message["Subject"] = args.title
@@ -215,5 +215,5 @@ if __name__ == "__main__":
         + datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         + "\033[0m"
     )
-    watch_pid_sent(args.pid, [args.receivers], compress_message())
+    watch_pid_sent(args.pid, [args.receivers], compress_message(args))
     clean_logf(args.attachment_path)
