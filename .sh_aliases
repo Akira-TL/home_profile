@@ -32,8 +32,22 @@ alias h='history'
 
 alias pi='pip install $*'
 alias pu='pip uninstall $*'
-alias ca='conda activate base'
+ca() {
+    if [ $# -eq 0 ]; then
+        conda activate base
+    else
+        conda activate "$1"
+    fi
+}
 alias cda='conda deactivate'
+ma() {
+    if [ $# -eq 0 ]; then
+        mamba activate base
+    else
+        mamba activate "$1"
+    fi
+}
+alias mda='mamba deactivate'
 alias mm='make -j && make install'
 alias ht='htop $*'
 # alias python=python3
