@@ -2,6 +2,9 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # Path to your oh-my-zsh installation.
 
+# wakatime 
+export ZSH_WAKATIME_PROJECT_DETECTION=true
+
 # brew适配zsh自动补全需要
 if
     [[ $PATH != *"/home/linuxbrew/.linuxbrew/bin:"* ]] &&
@@ -88,6 +91,7 @@ plugins=(
     you-should-use
     z # autojump
     zsh-syntax-highlighting
+    zsh-wakatime
 )
 [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
 
