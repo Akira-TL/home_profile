@@ -47,15 +47,15 @@ case "$1" in
             exit 0
         fi
         # wget 静默下载
-        # if [ ! -d "$RENV_ARCHIVE/R-$VERSION" ];then
-        #     echo "Downloading R version $VERSION..."
-        #     wget "https://cran.r-project.org/src/base/R-4/R-$VERSION.tar.gz"  -O "$RENV_ARCHIVE/R-$VERSION.tar.gz" || {
-        #         echo "Failed to download R version $VERSION"
-        #         exit 1
-        #     }
-        # else
-        #     echo "Using archived package."
-        # fi
+        if [ ! -d "$RENV_ARCHIVE/R-$VERSION" ];then
+            echo "Downloading R version $VERSION..."
+            wget "https://cran.r-project.org/src/base/R-4/R-$VERSION.tar.gz"  -O "$RENV_ARCHIVE/R-$VERSION.tar.gz" || {
+                echo "Failed to download R version $VERSION"
+                exit 1
+            }
+        else
+            echo "Using archived package."
+        fi
         echo "Extracting R version $VERSION..."
         tar --use-compress-program=pigz -xvpf "$RENV_ARCHIVE/R-$VERSION.tar.gz" -C "$RENV_ARCHIVE/" || {
             echo "Failed to extract R version $VERSION"
