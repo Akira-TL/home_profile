@@ -171,7 +171,7 @@ fi
 typeset -U path
 
 if ((FIRST_LOGIN != 1)); then
-    # c
+    c
     FIRST_LOGIN=1
 fi
 

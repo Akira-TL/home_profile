@@ -2,7 +2,7 @@
  # @Author: Akira-TL 2273076505@qq.com
  # @Date: 2025-03-16 10:32:27
  # @LastEditors: Akira-TL 2273076505@qq.com
- # @LastEditTime: 2025-06-08 13:00:20
+ # @LastEditTime: 2025-07-01 20:15:47
  # @FilePath: /.home_profile/.sh_env
  # @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 ### 
@@ -18,7 +18,10 @@ if [ -d "$HOME/.pyenv" ]; then
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
 fi
-
+if [ -d "$HOME/.renv" ]; then
+    export RENV_ROOT="$HOME/.renv"
+    [[ -d $RENV_ROOT/bin ]] && export PATH="$RENV_ROOT/bin:$PATH"
+fi
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/readline/lib #设置动态链接库的路径
 # export LIBRARY_PATH=$LIBRARY_PATH:$HOME/.local/readline/lib #设置静态库的路径
 
