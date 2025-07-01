@@ -1,0 +1,14 @@
+[Unit]
+Description=Timed Downloader Service (Bash, Multi-mode)
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/downloader.sh
+Restart=always
+RestartSec=10
+StandardOutput=append:%h/.downloader/service.log
+StandardError=append:%h/.downloader/service.err
+
+[Install]
+WantedBy=default.target
