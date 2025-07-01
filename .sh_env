@@ -5,13 +5,17 @@ if [[ $PATH != *"${HOME}/.local/bin:"* ]]; then
 fi
 if [ -d "$HOME/.pyenv" ]; then
     export PYENV_ROOT="$HOME/.pyenv"
-    [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+    if [[ $PATH != *"${PYENV_ROOT}/bin:"*  && -d "$PYENV_ROOT/bin" ]]; then
+        export PATH="$PYENV_ROOT/bin:$PATH"
+    fi
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
 fi
 if [ -d "$HOME/.renv" ]; then
     export RENV_ROOT="$HOME/.renv"
-    [[ -d $RENV_ROOT/bin ]] && export PATH="$RENV_ROOT/bin:$PATH"
+    if [[ $PATH != *"${RENV_ROOT}/bin:"* && -d "$RENV_ROOT/bin" ]]; then
+        export PATH="$RENV_ROOT/bin:$PATH"
+    fi
 fi
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/readline/lib #设置动态链接库的路径
 # export LIBRARY_PATH=$LIBRARY_PATH:$HOME/.local/readline/lib #设置静态库的路径
