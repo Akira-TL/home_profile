@@ -122,11 +122,18 @@ case "$1" in
             echo "R version $1 is not installed."
             exit 1
         fi
-        if [ -L "$RENV_BIN/R" ]; then
-            rm -rf "$RENV_BIN/R"
+        if [ -L "$RENV_BIN" || -d "$RENV_BIN" ]; then
+            rm -rf "$RENV_BIN"
         fi
-        ln -s "$RENV_VERSIONS/$1/bin/R" "$RENV_BIN" 2>/dev/null || {
+        if [ -L "$RENV_ROOT/lib" || -d "$RENV_ROOT/lib"  ]; then
+            rm -rf "$RENV_ROOT/lib"
+        fi
+        ln -s "$RENV_VERSIONS/$1/bin" "$RENV_BIN" 2>/dev/null || {
             echo "Failed to set global R version to $1. Make sure it is installed."
+            exit 1
+        }
+        ln -s "$RENV_VERSIONS/$1/lib" "$RENV_BIN/lib" 2>/dev/null || {
+            echo "Failed to link R executable."
             exit 1
         }
         echo $1 > "$RENV_GLOBAL"
