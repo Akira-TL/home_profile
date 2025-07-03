@@ -122,10 +122,10 @@ case "$1" in
             echo "R version $1 is not installed."
             exit 1
         fi
-        if [ -L "$RENV_BIN" || -d "$RENV_BIN" ]; then
+        if [[ -L "$RENV_BIN" || -d "$RENV_BIN" ]]; then
             rm -rf "$RENV_BIN"
         fi
-        if [ -L "$RENV_ROOT/lib" || -d "$RENV_ROOT/lib"  ]; then
+        if [[ -L "$RENV_ROOT/lib" || -d "$RENV_ROOT/lib" ]]; then
             rm -rf "$RENV_ROOT/lib"
         fi
         ln -s "$RENV_VERSIONS/$1/bin" "$RENV_BIN" 2>/dev/null || {
