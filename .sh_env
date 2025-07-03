@@ -16,8 +16,8 @@ if [ -d "$HOME/.renv" ]; then
     if [[ $PATH != *"${RENV_ROOT}/bin:"* && -d "$RENV_ROOT/bin" ]]; then
         export PATH="$RENV_ROOT/bin:$PATH"
     fi
-    if [[ $LD_LIBRARY_PATH != *"${RENV_ROOT}/lib/R/lib:"* && -d "$RENV_ROOT/lib" ]]; then
-        export LD_LIBRARY_PATH="$RENV_ROOT/lib/R/lib:$LIBRARY_PATH"
+    if [[ $LD_LIBRARY_PATH != *"${RENV_ROOT}/lib:"* && -L "$RENV_ROOT/lib" ]]; then
+        export LD_LIBRARY_PATH="$RENV_ROOT/lib:$LIBRARY_PATH"
     fi
 fi
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/readline/lib #设置动态链接库的路径
