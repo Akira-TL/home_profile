@@ -132,7 +132,7 @@ case "$1" in
             echo "Failed to set global R version to $1. Make sure it is installed."
             exit 1
         }
-        ln -s "$RENV_VERSIONS/$1/lib" "$RENV_ROOT/lib" 2>/dev/null || {
+        ln -s "$RENV_VERSIONS/$1/lib" "$RENV_ROOT/lib/R/lib" 2>/dev/null || {
             echo "Failed to link R executable."
             exit 1
         }
