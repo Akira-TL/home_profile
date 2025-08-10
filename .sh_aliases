@@ -1,6 +1,6 @@
 #!/bin/bash
 # alias sgl=singularity
-alias qiime2='conda activate qiime2'
+# alias qiime2='conda activate qiime2'
 # alias et='echo OK'
 
 ## get rid of command not found ##

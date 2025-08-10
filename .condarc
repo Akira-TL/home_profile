@@ -1,7 +1,7 @@
 channels:
   - defaults
-  - bioconda
-  - conda-forge
+  # - bioconda
+  # - conda-forge
   # - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
   # - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/linux-64/
   # - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
